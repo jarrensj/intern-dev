@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const commitPlanPrompt = `Write me a COMMIT_PLAN.md where you write each commit with feat: ui: ux: chore:
 Make sure that each commit is iterative. Don't make a single commit adding all the dependencies or schemas. Only commit and push the schemas as you go.
 
@@ -15,15 +19,31 @@ chore: initialize express backend with typescript
 Why this is bad: This commit installs all dependencies upfront before they're needed. Supabase, express, cors, etc. should each be added in the commit where they're actually used. For example, add @supabase/supabase-js only when you implement the database connection, add cors when you implement CORS handling. This keeps commits focused and makes it clear why each dependency was added.`;
 
 export default function Home() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(commitPlanPrompt);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 p-8">
         <h1 className="text-2xl font-bold mb-6">intern dev</h1>
 
         <div className="max-w-2xl">
-          <label htmlFor="commit-plan-prompt" className="block text-sm font-medium mb-2">
-            Commit Plan Prompt
-          </label>
+          <div className="flex items-center justify-between mb-2">
+            <label htmlFor="commit-plan-prompt" className="block text-sm font-medium">
+              Commit Plan Prompt
+            </label>
+            <button
+              onClick={handleCopy}
+              className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            >
+              {copied ? "Copied!" : "Copy"}
+            </button>
+          </div>
           <textarea
             id="commit-plan-prompt"
             className="w-full h-64 p-4 border border-zinc-300 rounded-lg bg-zinc-50 text-sm font-mono resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
