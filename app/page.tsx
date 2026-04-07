@@ -46,7 +46,7 @@ export default function Home() {
           </div>
           <textarea
             id="commit-plan-prompt"
-            className="w-full h-64 p-4 border border-zinc-300 rounded-lg bg-zinc-50 text-sm font-mono resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full h-64 p-4 border border-zinc-300 dark:border-zinc-700 rounded-lg bg-zinc-50 dark:bg-zinc-900 dark:text-zinc-100 text-sm font-mono resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             defaultValue={commitPlanPrompt}
             readOnly
           />
